@@ -25,6 +25,9 @@ const datosUsuario = {
 /* -------- lanzamos la validacion de nombre cuando salimos del input ------- */
 
 function addHobbies() {
+  console.log(checkBoxes)
+
+  let objects = {}
   checkBoxes.forEach((hobbie) => {
     if (hobbie.checked) {
       if (!listadoHobbies.includes(hobbie.id)) {
@@ -39,28 +42,20 @@ function addHobbies() {
       }
     }
 
-    let prueba = false
-    let geral = false
-    prueba = hobbie.id == 'hobbiesVideoJuegos' || hobbie.id == 'hobbiesCocina' ? true : false
-    // if (hobbie.id == 'hobbiesVideoJuegos' && hobbie.checked) {
-    //   console.log('>> entre')
-    //   if (hobbie.id == 'hobbiesCocina' && !hobbie.checked && prueba) {
-    //     console.log('>> entre siii')
-    //     hobbie.disabled = true
-    //   }
-    // }
-
-    if (!hobbie.checked && prueba) {
-      hobbie.disabled = true
-    }
-
-    console.log('seleccionado', hobbie.id, hobbie.checked, hobbie.disabled, prueba)
+    objects[hobbie.id] = hobbie
   })
+
+  combinationCheckBoxes('hobbiesCocina', 'hobbiesVideoJuegos', objects)
+  combinationCheckBoxes('hobbiesGuitarra', 'hobbiesLectura', objects)
+  combinationCheckBoxes('hobbiesNetflix', 'hobbiesTejer', objects)
 
   datosUsuario.hobbies = listadoHobbies
 }
 
-function combinationCheckBoxes() {}
+function combinationCheckBoxes(comb1, comb2, obj) {
+  obj[comb1].disabled = listadoHobbies.includes(comb2)
+  obj[comb2].disabled = listadoHobbies.includes(comb1)
+}
 function getNacionalidad() {
   radioButons.forEach((button) => {
     if (button.checked) {
