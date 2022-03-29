@@ -10,6 +10,7 @@ const checkBoxes = document.querySelectorAll('[name=hobbies]')
 const radioButons = document.querySelectorAll('[name=nacionalidad]')
 
 const mensajeNombre = document.querySelector('#mensajeNombre')
+const mensajeRaddioButton = document.querySelector('#mensajeRaddioButton')
 
 let listadoHobbies = []
 let nacionalidad = ''
@@ -53,6 +54,11 @@ function getNacionalidad() {
       nacionalidad = button.id
     }
   })
+  if (nacionalidad === 'nacionalidadArgentina') {
+    mensajeRaddioButton.classList.remove('oculto')
+  } else {
+    mensajeRaddioButton.classList.add('oculto')
+  }
   datosUsuario.nacionalidad = nacionalidad
 }
 
@@ -128,7 +134,11 @@ formulario.addEventListener('change', function () {
   getNacionalidad()
 
   console.log(datosUsuario)
-  if (validarNombre(datosUsuario.nombre) && datosUsuario.hobbies.length <= 4) {
+  if (
+    validarNombre(datosUsuario.nombre) &&
+    datosUsuario.hobbies.length <= 4 &&
+    datosUsuario.nacionalidad != 'nacionalidadArgentina'
+  ) {
     console.log('>>> Exitoso')
     botonSubmit.removeAttribute('disabled')
   } else {
