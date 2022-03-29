@@ -5,6 +5,7 @@ const inputNombre = document.querySelector('#nombre')
 const inputContrasenia = document.querySelector('#pass')
 const inputTelefono = document.querySelector('#tel')
 const checkBoxes = document.querySelectorAll('[name=hobbies]')
+
 // const checkboxes = document.getElementsByName('hobbies');
 const radioButons = document.querySelectorAll('[name=nacionalidad]')
 
@@ -25,25 +26,15 @@ const datosUsuario = {
 /* -------- lanzamos la validacion de nombre cuando salimos del input ------- */
 
 function addHobbies() {
-  console.log(checkBoxes)
+  console.log(checkBoxes[0])
 
   let objects = {}
-  checkBoxes.forEach((hobbie) => {
-    if (hobbie.checked) {
-      if (!listadoHobbies.includes(hobbie.id)) {
-        listadoHobbies.push(hobbie.id)
-      }
-    } else {
-      if (!hobbie.checked) {
-        let index = listadoHobbies.indexOf(hobbie.id)
-        if (index !== -1) {
-          listadoHobbies.splice(index, 1)
-        }
-      }
-    }
-
-    objects[hobbie.id] = hobbie
-  })
+  listadoHobbies = [...checkBoxes]
+    .filter((hobbie) => {
+      objects[hobbie.id] = hobbie
+      return hobbie.checked
+    })
+    .map((hobbie) => hobbie.id)
 
   combinationCheckBoxes('hobbiesCocina', 'hobbiesVideoJuegos', objects)
   combinationCheckBoxes('hobbiesGuitarra', 'hobbiesLectura', objects)
